@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+    jenkins-cf:
+        build: .
+        image: jenkins-cf:latest
+
+    jenkins-windows:
+        container_name: jenkins-windows
+        image: jenkins-cf:latest
+        ports:
+            - 8080:8080
+            - 50000:50000
+        volumes:
+            - $PWD/jenkins-data:/var/jenkins_home
+            - /var/run/docker.sock:/var/run/docker.sock
+            #- $HOMEDRIVE$HOMEPATH:/home
+        user: root
+        depends_on:
+            - jenkins-cf
+
+# Command for run jenkins image
+# docker run -d -u root  -p "8080:8080" -p "50000:50000" -v $PWD/jenkins-data:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock jenkinsci/blueocean

@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+    docker-registry:
+        container_name: jenkins-linux
+        image: jenkinsci/blueocean
+        ports:
+            - 8080:8080
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock 
+            - /var/jenkins_home:/var/jenkins_home
+        user: root
